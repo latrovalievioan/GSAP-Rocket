@@ -12,7 +12,7 @@ export default class Animation {
 
   start() {
     this._rocketTween = gsap.to(this._rocketElement, {
-      motionPath: this._svgPath,
+      motionPath: { path: this._svgPath, autoRotate: true },
       repeat: -1,
       duration: 10,
       ease: "easeNone",
@@ -20,16 +20,18 @@ export default class Animation {
 
     this._backgroundElement.addEventListener("click", () => {
       this.stopAnimation();
-      this._backgroundElement.removeEventListener("click", () =>
-        this.stopAnimation()
+      this._backgroundElement.addEventListener("click", () =>
+        this.resetAnimation()
       );
-      this._backgroundElement.addEventListener("click", () => this.start());
-      this._backgroundElement.removeEventListener("click", () => this.start());
     });
   }
 
   stopAnimation() {
     this._rocketTween.kill();
+  }
+
+  resetAnimation() {
     this._rocketTween = null;
+    this.start();
   }
 }
