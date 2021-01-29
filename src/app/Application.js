@@ -38,6 +38,7 @@ export default class Application extends EventEmitter {
     const animation = new Animation(config.svgPath);
     this.data.animation = animation;
     animation.start();
+    animation.listeners();
 
     this.emit(Application.events.APP_READY);
   }
